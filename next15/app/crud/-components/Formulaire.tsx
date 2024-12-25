@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from '@/components/ui/button'
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import SchemaTaches from '../schema/schema-tache';
+import SchemaTaches from '../../schema/schema-tache';
 import axios from "axios"
 import { useRouter } from 'next/navigation';
 
@@ -15,7 +15,7 @@ interface Formulaire {
   message : string
 }
 
-const Crud = () => {
+const Formulaire = () => {
 
   const {register, handleSubmit, reset, formState: {isSubmitting, errors} } = useForm<Formulaire>({
     resolver: zodResolver(SchemaTaches),
@@ -25,7 +25,7 @@ const Crud = () => {
 
   const OnSubmit = async (data : Formulaire) => {
     await axios.post('/api/crud', data)
-    router.push('/listecrud')
+    router.push('/')
     router.refresh()
     console.log(data)
     reset()
@@ -58,4 +58,4 @@ const Crud = () => {
   )
 }
 
-export default Crud
+export default Formulaire

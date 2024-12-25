@@ -3,6 +3,7 @@ import { Table,TableBody,TableCell,TableHead,TableHeader,TableRow} from "@/compo
 import prisma from '@/prisma/db'
 import BadgeTache from '@/components/BadgeTache'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 const ListeCrud = async () => {
 
@@ -10,6 +11,7 @@ const ListeCrud = async () => {
 
   return (
     <div>
+      <Link href="/crud/nouveau"> <Button className='bg-blue-500'> Nouvelle tache </Button></Link>
             <Table>
                 <TableHeader>
                     <TableRow>

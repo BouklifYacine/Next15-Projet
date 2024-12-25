@@ -2,6 +2,7 @@ import React from 'react'
 import { Table,TableBody,TableCell,TableHead,TableHeader,TableRow} from "@/components/ui/table"
 import prisma from '@/prisma/db'
 import BadgeTache from '@/components/BadgeTache'
+import Link from 'next/link'
 
 const ListeCrud = async () => {
 
@@ -22,7 +23,9 @@ const ListeCrud = async () => {
   <TableBody>
   {issues.map(issue =>  <TableRow key={issue.id}>
     <TableCell >{issue.id}</TableCell>
+    <Link href={`/crud/${issue.id}`}>
     <TableCell className='font-bold hover:text-gray-500 cursor-pointer' >{issue.titre}</TableCell>
+    </Link>
     <TableCell >{issue.message}</TableCell>
     <TableCell ><BadgeTache status={issue.status}></BadgeTache></TableCell>
     <TableCell >{issue.creerle.toLocaleTimeString()}</TableCell>

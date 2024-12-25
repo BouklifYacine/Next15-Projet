@@ -7,9 +7,9 @@ interface Props {
 }
 
 const Nouveau = async ({params} : Props) => {
+  
   const { id } = await params;
   const numId = parseInt(id);
-
   const tache = await prisma.tache.findUnique({
     where: { id: numId },
   });

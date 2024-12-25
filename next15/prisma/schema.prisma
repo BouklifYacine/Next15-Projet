@@ -17,14 +17,20 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
-  posts Post[]
+ 
 }
 
-model Post {
+model Tache {
   id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  titre     String @db.VarChar(255)
+  message String @db.VarChar(255)
+  status Status @default(OUVERT)
+  creerle DateTime @default(now())
+  misajour DateTime @updatedAt
+}
+
+enum Status {
+  OUVERT 
+  EN_PROGRES 
+  FERMER
 }

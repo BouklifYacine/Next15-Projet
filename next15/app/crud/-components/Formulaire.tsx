@@ -9,13 +9,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import SchemaTaches from '../../schema/schema-tache';
 import axios from "axios"
 import { useRouter } from 'next/navigation';
+import { Tache } from '@prisma/client'
 
 interface Formulaire {
   titre : string , 
   message : string
 }
 
-const Formulaire = () => {
+interface Props {
+    tache? : Tache
+}
+
+const Formulaire = ({tache} : Props) => {
 
   const {register, handleSubmit, reset, formState: {isSubmitting, errors} } = useForm<Formulaire>({
     resolver: zodResolver(SchemaTaches),
@@ -40,13 +45,13 @@ const Formulaire = () => {
     <form onSubmit={handleSubmit(OnSubmit)} className='space-y-4'>
       <div className='space-y-2'>
         <Label htmlFor="titre">Titre</Label>
-        <Input type="text" id="titre" placeholder="Titre" className="w-full" {...register("titre")} />
+        <Input type="text" id="titre" defaultValue={tache?.titre} placeholder="Titre" className="w-full" {...register("titre")} />
         {errors.titre && <p className='text-red-500'> {errors.titre?.message} </p>}
       </div>
 
       <div className='space-y-2'>
         <Label htmlFor="message">Message</Label>
-        <Input type="text" id="message" placeholder="Message" className="w-full" {...register("message")} />
+        <Input type="text" id="message" defaultValue={tache?.message} placeholder="Message" className="w-full" {...register("message")} />
         {errors.message && <p className='text-red-500'> {errors.message?.message} </p>}
       </div>
 

@@ -14,7 +14,7 @@ export async function POST(request:NextRequest){
         where : {email}
     })
 
-    if(user) return NextResponse.json({message : "Cet Email existe deja "})
+    if(user) return NextResponse.json({message : "Cet Email existe deja "} , {status : 400})
 
     const motdepasse = await bcrypt.hash(password, 10)
 

@@ -4,8 +4,12 @@ import prisma from '@/prisma/db'
 import BadgeTache from '@/components/BadgeTache'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { auth } from "@/auth"
+import { redirect } from 'next/navigation'
 
 const ListeCrud = async () => {
+     const session = await auth()
+        if (!session) redirect("/")
 
     const taches = await prisma.tache.findMany()
 

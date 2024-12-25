@@ -10,17 +10,16 @@ export async function PATCH(request: NextRequest, { params }: Props) {
   const { titre, message } = await request.json();
   const validation = SchemaTaches.safeParse({ titre, message });
 
-  if (!validation.success) {
-    NextResponse.json(validation.error.format(), { status: 400 });
-  }
+  if (!validation.success) return NextResponse.json(validation.error.format(), { status: 400 });
+  
 
   const { id } = await params;
   const numId = parseInt(id);
-  const tache = prisma.tache.findUnique({
+  const tache = await prisma.tache.findUnique({
     where: { id: numId },
   });
 
-  if (!tache) NextResponse.json("Cette Tache n'existe pas ");
+  if (!tache) return NextResponse.json("Cette Tache n'existe pas ");
 
   const TacheAjour = await prisma.tache.update({
     where: { id: numId },

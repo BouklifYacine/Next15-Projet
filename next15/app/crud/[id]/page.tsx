@@ -7,7 +7,11 @@ interface Props {
 }
 
 const CrudId = async ({ params }: Props) => {
+
+    
     const { id } = await params;
+
+    if (typeof id !== "number") notFound()
     const tache = await prisma.tache.findUnique({
         where: { id: parseInt(id) }
     })

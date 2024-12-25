@@ -2,8 +2,9 @@
 import prisma from "@/prisma/db";
 import { notFound } from "next/navigation";
 import React from "react";
-import BoutonEditEtSupprimer from "./components/BoutonEditEtSupprimer";
-import TacheDetails from "./components/TacheDetails";
+
+import TacheDetails from "../-components/TacheDetails";
+import BoutonEditEtSupprimer from "../-components/BoutonEditEtSupprimer";
 
 interface Props {
   params: Promise<{ id: string }>;

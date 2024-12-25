@@ -8,7 +8,7 @@ export default function Navbar() {
 <div className="flex justify-around h-full items-center">
 <Link href="/"> <FcGlobe className="text-3xl"></FcGlobe></Link>
 <Link href="/crud" className="font-bold text-2xl">Crud </Link>
-<Link href="/" className="font-bold text-2xl">Accueil</Link>
+<Link href="/listecrud" className="font-bold text-2xl">Liste-Crud</Link>
  <ModeToggle></ModeToggle>
 </div>
 </nav>

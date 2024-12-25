@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table,TableBody,TableCell,TableHead,TableHeader,TableRow} from "@/components/ui/table"
 import prisma from '@/prisma/db'
+import BadgeTache from '@/components/BadgeTache'
 
 const ListeCrud = async () => {
 
@@ -23,7 +24,7 @@ const ListeCrud = async () => {
     <TableCell >{issue.id}</TableCell>
     <TableCell className='font-bold hover:text-gray-500 cursor-pointer' >{issue.titre}</TableCell>
     <TableCell >{issue.message}</TableCell>
-    <TableCell >{issue.status}</TableCell>
+    <TableCell ><BadgeTache status={issue.status}></BadgeTache></TableCell>
     <TableCell >{issue.creerle.toLocaleTimeString()}</TableCell>
   </TableRow> )}
   

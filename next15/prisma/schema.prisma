@@ -17,20 +17,19 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
- 
 }
 
 model Tache {
-  id        Int     @id @default(autoincrement())
-  titre     String @db.VarChar(255)
-  message String @db.VarChar(255)
-  status Status @default(OUVERT)
-  creerle DateTime @default(now())
+  id       Int      @id @default(autoincrement())
+  titre    String   @db.VarChar(255)
+  message  String   @db.VarChar(255)
+  status   Status   @default(OUVERT)
+  creerle  DateTime @default(now())
   misajour DateTime @updatedAt
 }
 
 enum Status {
-  OUVERT 
-  EN_PROGRES 
+  OUVERT
+  EN_PROGRES
   FERMER
 }

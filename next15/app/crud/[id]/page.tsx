@@ -1,42 +1,34 @@
-import BadgeTache from '@/components/BadgeTache'
-import { Button } from '@/components/ui/button'
-import prisma from '@/prisma/db'
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import React from 'react'
+
+import prisma from "@/prisma/db";
+import { notFound } from "next/navigation";
+import React from "react";
+import BoutonEditEtSupprimer from "./components/BoutonEditEtSupprimer";
+import TacheDetails from "./components/TacheDetails";
 
 interface Props {
-    params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }
 
 const CrudId = async ({ params }: Props) => {
-    const { id } = await params;
-    const numId = parseInt(id);
+  const { id } = await params;
+  const numId = parseInt(id);
 
-    if (isNaN(numId)) notFound();
+  if (isNaN(numId)) notFound();
 
-    const tache = await prisma.tache.findUnique({
-        where: { id: numId }
-    });
+  const tache = await prisma.tache.findUnique({
+    where: { id: numId },
+  });
 
-    if (!tache) notFound();
+  if (!tache) notFound();
 
-    return (
-        <>
-            <p>{tache.titre}</p>
-            <p>{tache.message}</p>
-            <p><BadgeTache status={tache.status}></BadgeTache></p>
-            <p>{tache.creerle.toLocaleDateString()}</p>
+  return (
+    <>
+      <TacheDetails tache={tache}></TacheDetails>
+      <div className="flex gap-x-5">
+        <BoutonEditEtSupprimer TacheId={tache.id}></BoutonEditEtSupprimer>
+      </div>
+    </>
+  );
+};
 
-<div className='flex gap-x-5'>
-    <Link href={`/crud/${tache.id}/edit`}
-    ><Button className='bg-yellow-500 rounded-xl mt-6'> Editer </Button>
-    </Link>
-    <Button className='bg-red-500 rounded-xl mt-6'> Supprimer </Button>
-</div>
-            
-        </>
-    );
-}
-
-export default CrudId
+export default CrudId;

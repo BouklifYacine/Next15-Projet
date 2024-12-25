@@ -1,3 +1,4 @@
+import BadgeTache from '@/components/BadgeTache'
 import prisma from '@/prisma/db'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -22,7 +23,7 @@ const CrudId = async ({ params }: Props) => {
         <>
             <p>{tache.titre}</p>
             <p>{tache.message}</p>
-            <p>{tache.status}</p>
+            <p><BadgeTache status={tache.status}></BadgeTache></p>
             <p>{tache.creerle.toLocaleDateString()}</p>
         </>
     );

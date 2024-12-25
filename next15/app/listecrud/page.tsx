@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 const ListeCrud = async () => {
 
-    const issues = await prisma.tache.findMany()
+    const taches = await prisma.tache.findMany()
 
   return (
     <div>
@@ -21,14 +21,14 @@ const ListeCrud = async () => {
     </TableRow>
   </TableHeader>
   <TableBody>
-  {issues.map(issue =>  <TableRow key={issue.id}>
-    <TableCell >{issue.id}</TableCell>
-    <Link href={`/crud/${issue.id}`}>
-    <TableCell className='font-bold hover:text-gray-500 cursor-pointer' >{issue.titre}</TableCell>
+  {taches.map(tache =>  <TableRow key={tache.id}>
+    <TableCell >{tache.id}</TableCell>
+    <Link href={`/crud/${tache.id}`}>
+    <TableCell className='font-bold hover:text-gray-500 cursor-pointer' >{tache.titre}</TableCell>
     </Link>
-    <TableCell >{issue.message}</TableCell>
-    <TableCell ><BadgeTache status={issue.status}></BadgeTache></TableCell>
-    <TableCell >{issue.creerle.toLocaleTimeString()}</TableCell>
+    <TableCell >{tache.message}</TableCell>
+    <TableCell ><BadgeTache status={tache.status}></BadgeTache></TableCell>
+    <TableCell >{tache.creerle.toLocaleTimeString()}</TableCell>
   </TableRow> )}
   
   </TableBody>

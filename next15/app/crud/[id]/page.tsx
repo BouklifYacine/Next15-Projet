@@ -7,16 +7,16 @@ interface Props {
 }
 
 const CrudId = async ({ params }: Props) => {
-
-    
     const { id } = await params;
+    const numId = parseInt(id);
 
-    if (typeof id !== "number") notFound()
+    if (isNaN(numId)) notFound();
+
     const tache = await prisma.tache.findUnique({
-        where: { id: parseInt(id) }
-    })
+        where: { id: numId }
+    });
 
-    if (!tache) notFound()
+    if (!tache) notFound();
 
     return (
         <>
@@ -25,7 +25,7 @@ const CrudId = async ({ params }: Props) => {
             <p>{tache.status}</p>
             <p>{tache.creerle.toLocaleDateString()}</p>
         </>
-    )
+    );
 }
 
 export default CrudId

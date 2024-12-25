@@ -11,7 +11,7 @@ const ListeCrud = async () => {
 
   return (
     <div>
-      <Link href="/crud/nouveau"> <Button className='bg-blue-500'> Nouvelle tache </Button></Link>
+      <Link href="/crud"> <Button className='bg-blue-500'> Nouvelle tache </Button></Link>
             <Table>
                 <TableHeader>
                     <TableRow>

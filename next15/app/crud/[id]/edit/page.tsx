@@ -1,20 +1,21 @@
 import React from 'react'
-
 import prisma from '@/prisma/db'
 import { notFound } from 'next/navigation'
 import Formulaire from '../../-components/Formulaire'
-
 interface Props {
-    params : { id : string }
+  params: Promise<{ id: string }>;
 }
 
-
 const Nouveau = async ({params} : Props) => {
-    const tache = await prisma.tache.findUnique({
-        where : { id : parseInt(params.id)}
-    })
+  const { id } = await params;
+  const numId = parseInt(id);
 
-    if(!tache) notFound()
+  const tache = await prisma.tache.findUnique({
+    where: { id: numId },
+  });
+
+  if (!tache) notFound();
+
   return (
    <Formulaire tache={tache}></Formulaire>
   )

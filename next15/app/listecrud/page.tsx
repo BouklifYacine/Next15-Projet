@@ -10,31 +10,33 @@ const ListeCrud = async () => {
 
   return (
     <div>
-        <Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead className="w-[100px]">ID</TableHead>
-      <TableHead>Titre</TableHead>
-      <TableHead>Message</TableHead>
-      <TableHead>Statut</TableHead>
-      <TableHead>Heure de création</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-  {taches.map(tache =>  <TableRow key={tache.id}>
-    <TableCell >{tache.id}</TableCell>
-    <Link href={`/crud/${tache.id}`}>
-    <TableCell className='font-bold hover:text-gray-500 cursor-pointer' >{tache.titre}</TableCell>
-    </Link>
-    <TableCell >{tache.message}</TableCell>
-    <TableCell ><BadgeTache status={tache.status}></BadgeTache></TableCell>
-    <TableCell >{tache.creerle.toLocaleTimeString()}</TableCell>
-  </TableRow> )}
-  
-  </TableBody>
-</Table>
-
-    </div>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead className="w-[100px]">ID</TableHead>
+                        <TableHead>Titre</TableHead>
+                        <TableHead>Message</TableHead>
+                        <TableHead>Statut</TableHead>
+                        <TableHead>Heure de création</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {taches.map(tache => (
+                        <TableRow key={tache.id}>
+                            <TableCell>{tache.id}</TableCell>
+                            <TableCell>
+                                <Link href={`/crud/${tache.id}`} className='font-bold hover:text-gray-500'>
+                                    {tache.titre}
+                                </Link>
+                            </TableCell>
+                            <TableCell>{tache.message}</TableCell>
+                            <TableCell><BadgeTache status={tache.status} /></TableCell>
+                            <TableCell>{tache.creerle.toLocaleTimeString()}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </div>
   )
 }
 

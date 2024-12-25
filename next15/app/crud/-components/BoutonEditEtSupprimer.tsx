@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -12,8 +14,18 @@ import {
 } from "@/components/ui/alert-dialog";
 import Link from "next/link";
 import React from "react";
+import axios from "axios";
+import { useRouter } from 'next/navigation';
 
 const BoutonEditEtSupprimer = ({ TacheId }: { TacheId: number }) => {
+
+  const router = useRouter()
+
+  const Supprimertache = async () => {
+  await axios.delete(`/api/crud/${TacheId}`)
+  router.push('/listecrud')
+  router.refresh()}
+
   return (
     <>
       <Link href={`/crud/${TacheId}/edit`}>
@@ -32,7 +44,7 @@ const BoutonEditEtSupprimer = ({ TacheId }: { TacheId: number }) => {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel className="bg-red-500 border-none rounded-xl">Annuler</AlertDialogCancel>
-            <AlertDialogAction className="bg-blue-500 border-none rounded-xl">Valider</AlertDialogAction>
+            <AlertDialogAction className="bg-blue-500 border-none rounded-xl" onClick={Supprimertache}>Valider</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

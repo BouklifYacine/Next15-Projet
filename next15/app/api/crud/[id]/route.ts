@@ -28,3 +28,19 @@ export async function PATCH(request: NextRequest, { params }: Props) {
 
   return NextResponse.json(TacheAjour);
 }
+
+export async function DELETE(request : NextRequest, { params }: Props){
+  const { id } = await params;
+  const numId = parseInt(id);
+  const tache = await prisma.tache.findUnique({
+    where: { id: numId },
+  });
+
+  if(!tache) return NextResponse.json({message : " Cette tache n'existe pas "}, {status : 400})
+
+   const tachesupprimer = await prisma.tache.delete({
+      where: { id: numId },
+    })
+
+    return NextResponse.json(tachesupprimer)
+}

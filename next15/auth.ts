@@ -2,11 +2,15 @@ import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GitHubProvider from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
-import { prisma } from "@/prisma";
+
 import bcrypt from "bcryptjs";
+import prisma from "./prisma/db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
+  session : {
+    strategy: "jwt"
+  },
   providers: [
     GitHubProvider({
       clientId: process.env.AUTH_GITHUB_ID,

@@ -1,11 +1,21 @@
 import React from 'react'
 import { Table,TableBody,TableCell,TableHead,TableHeader,TableRow} from "@/components/ui/table"
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
 import prisma from '@/prisma/db'
 import BadgeTache from '@/components/BadgeTache'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { auth } from "@/auth"
 import { redirect } from 'next/navigation'
+import SelectComponent from './_components/Select'
 
 const ListeCrud = async () => {
      const session = await auth()
@@ -15,7 +25,11 @@ const ListeCrud = async () => {
 
   return (
     <div>
-      <Link href="/crud"> <Button className='bg-blue-500'> Nouvelle tache </Button></Link>
+        <div className='flex gap-x-5 mt-5'>
+        <Link href="/crud"> <Button className='bg-blue-500'> Nouvelle tache </Button></Link>
+      <SelectComponent></SelectComponent>
+        </div>
+    
             <Table>
                 <TableHeader>
                     <TableRow>

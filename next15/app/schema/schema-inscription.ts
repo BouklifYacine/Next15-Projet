@@ -1,11 +1,14 @@
 import {z} from "zod"
 
-const SchemeInscription = z.object({
+const SchemaInscription = z.object({
     password: z.string()
         .trim()
         .min(6, "Minimum 6 caractères")
         .max(35, "Maximum 35 caractères"),
-    email: z.string().email()
+    name: z.string()
+    .trim()
+    .min(6, "Minimum 6 caractères")
+    .max(35, "Maximum 35 caractères"),
 })
 
-export default SchemeInscription
+export default SchemaInscription

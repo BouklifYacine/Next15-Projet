@@ -1,5 +1,7 @@
-import SchemaTaches from "@/app/schema/schema-tache";
+import { PatchSchemaTache } from "@/app/schema/schema-tache";
+import { auth } from "@/auth";
 import prisma from "@/prisma/db";
+
 import { NextRequest, NextResponse } from "next/server";
 
 interface Props {
@@ -7,11 +9,22 @@ interface Props {
 }
 
 export async function PATCH(request: NextRequest, { params }: Props) {
-  const { titre, message } = await request.json();
-  const validation = SchemaTaches.safeParse({ titre, message });
 
-  if (!validation.success) return NextResponse.json(validation.error.format(), { status: 400 });
-  
+const session = await auth()
+if (!session) return NextResponse.json({error : "Vous n'etes pas connecté "}, {status : 400})
+
+  const { titre, message, assignerauserid } = await request.json();
+  const validation = PatchSchemaTache.safeParse({ titre, message });
+
+  if (assignerauserid) {
+    const user = await prisma.user.findUnique({
+      where: { id: assignerauserid, }, });
+       if (!user)
+      return NextResponse.json({ error: " Id Invalide" }, { status: 400 });
+  }
+
+  if (!validation.success)
+    return NextResponse.json(validation.error.format(), { status: 400 });
 
   const { id } = await params;
   const numId = parseInt(id);
@@ -19,28 +32,33 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     where: { id: numId },
   });
 
-  if (!tache) return NextResponse.json("Cette Tache n'existe pas ");
+  if (!tache) return NextResponse.json("Cette Tache n'existe pas ", {status: 400});
 
   const TacheAjour = await prisma.tache.update({
     where: { id: numId },
-    data: { titre, message },
+    data: { titre, message, assignerauserid },
   });
 
   return NextResponse.json(TacheAjour);
 }
 
-export async function DELETE(request : NextRequest, { params }: Props){
+export async function DELETE(request: NextRequest, { params }: Props) {
+  
   const { id } = await params;
   const numId = parseInt(id);
   const tache = await prisma.tache.findUnique({
     where: { id: numId },
   });
 
-  if(!tache) return NextResponse.json({message : " Cette tache n'existe pas "}, {status : 400})
+  if (!tache)
+    return NextResponse.json(
+      { message: " Cette tache n'existe pas " },
+      { status: 400 }
+    );
 
-   const tachesupprimer = await prisma.tache.delete({
-      where: { id: numId },
-    })
+  const tachesupprimer = await prisma.tache.delete({
+    where: { id: numId },
+  });
 
-    return NextResponse.json(tachesupprimer)
+  return NextResponse.json(tachesupprimer);
 }

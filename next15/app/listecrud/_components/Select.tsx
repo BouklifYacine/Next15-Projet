@@ -13,6 +13,7 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Tache, User } from '@prisma/client'
+import toast, {Toaster} from "react-hot-toast"
 
 const SelectComponent = ({tache} : {tache : Tache}) => {
 
@@ -29,8 +30,16 @@ const SelectComponent = ({tache} : {tache : Tache}) => {
   
   return (
  <div>
-      <Select defaultValue={tache.assignerauserid || "NonAssigné"} onValueChange={(UserId) => {
-     axios.patch(`/api/crud/`+ tache.id, { assignerauserid: UserId === "NonAssigné" ? null : UserId })
+      <Select defaultValue={tache.assignerauserid || "NonAssigné"} 
+      onValueChange={ async (UserId) => {
+        try {
+          await axios.patch(`/api/crud/`+ tache.id, { assignerauserid: UserId === "NonAssigné" ? null : UserId })
+          toast.success(" Changement d'utilisateur réussi ")
+        } catch (error) {
+          toast.error("Le changement n'a pas pu etre effectué")
+          console.log(error)
+        }
+   
 
       }}>
       <SelectTrigger className="w-[180px]">
@@ -46,6 +55,7 @@ const SelectComponent = ({tache} : {tache : Tache}) => {
         </SelectGroup>
       </SelectContent>
     </Select>
+    <Toaster/>
  </div>
 
   )

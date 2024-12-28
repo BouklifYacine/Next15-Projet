@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import SchemaTaches from "../../schema/schema-tache";
+import {SchemaTaches} from "../../schema/schema-tache";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Tache } from "@prisma/client";

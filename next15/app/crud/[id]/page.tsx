@@ -2,9 +2,9 @@
 import prisma from "@/prisma/db";
 import { notFound } from "next/navigation";
 import React from "react";
-
 import TacheDetails from "../-components/TacheDetails";
 import BoutonEditEtSupprimer from "../-components/BoutonEditEtSupprimer";
+import SelectComponent from "@/app/listecrud/_components/Select";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -24,6 +24,7 @@ const CrudId = async ({ params }: Props) => {
 
   return (
     <>
+    <SelectComponent tache={tache}></SelectComponent>
       <TacheDetails tache={tache}></TacheDetails>
       <div className="flex gap-x-5">
         <BoutonEditEtSupprimer TacheId={tache.id}></BoutonEditEtSupprimer>

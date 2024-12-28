@@ -1,4 +1,4 @@
-import SchemaTaches from "@/app/schema/schema-tache";
+import {SchemaTaches} from "@/app/schema/schema-tache";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/db";
 

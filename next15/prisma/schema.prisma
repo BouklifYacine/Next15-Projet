@@ -20,6 +20,8 @@ model Tache {
   status   Status   @default(OUVERT)
   creerle  DateTime @default(now())
   misajour DateTime @updatedAt
+  assignerauserid String? @db.VarChar(255)
+  assignerauuser User? @relation(fields: [assignerauserid], references: [id])
 }
 
 enum Status {
@@ -37,6 +39,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   password      String?
+  tacheassigner Tache[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 

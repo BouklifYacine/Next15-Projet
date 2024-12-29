@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { auth } from "@/auth"
 import { redirect } from 'next/navigation'
+import SelectFiltre from './_components/SelectFiltre'
 
 const ListeCrud = async () => {
      const session = await auth()
@@ -16,7 +17,10 @@ const ListeCrud = async () => {
   return (
     <div>
         <div className='flex gap-x-5 mt-5'>
+        <div className='flex gap-x-5'>
         <Link href="/crud"> <Button className='bg-blue-500'> Nouvelle tache </Button></Link>
+        <SelectFiltre></SelectFiltre>
+        </div>
 
         </div>
     
